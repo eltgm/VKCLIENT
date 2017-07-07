@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FACEBOOKCLIENT(JUN)</string>
+    <integer name="com_vk_sdk_AppId">6087861</integer>
+</resources>
