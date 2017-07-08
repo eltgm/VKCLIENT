@@ -1,40 +1,73 @@
 package com.androidjun.eltgm.facebookclientjun;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import com.vk.sdk.VKAccessToken;
-import com.vk.sdk.VKCallback;
-import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
-import com.vk.sdk.api.VKBatchRequest;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
-import org.w3c.dom.Text;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 //SHA1: 63:B8:A3:E1:53:83:F2:10:56:97:28:BF:4E:1A:31:5D:ED:DC:6A:F3
 
+/**
+ *                      String url = null;
+ try {
+ url = userList.get(0).get("photo_100").toString();
+ } catch (JSONException e) {
+ e.printStackTrace();
+ }
+ Picasso.with(getApplicationContext())
+ .load(url)
+ .into(image);
+ */
 public class MainActivity extends AppCompatActivity {
+
+    ArrayList<JSONObject> userList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
-        final TextView textView = (TextView) findViewById(R.id.tvMain);
+        final VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100,bdate"));
 
-       // VKBatchRequest batchRequest = new VKBatchRequest(request,request1);
+        RecyclerView rv = (RecyclerView) findViewById(R.id.user_list);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        rv.setLayoutManager(llm);
+
         request.executeSyncWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
                 super.onComplete(response);
-                 textView.setText(response.json.toString());
+
+                JSONObject user;
+                JSONArray userArr = null;
+                try {
+                    userArr = (JSONArray) ((JSONObject) (response.json).get("response")).get("items");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    int i = 0;
+                    assert userArr != null;
+                    while (userArr.get(i) != null) {
+                        user = (JSONObject) userArr.get(i);
+                        userList.add(user);
+                        i++;
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -53,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        UsersAdapter adapter = new UsersAdapter(userList, this);
+        rv.setAdapter(adapter);
     }
-
-
 }

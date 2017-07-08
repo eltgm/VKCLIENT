@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FACEBOOKCLIENT(JUN).iml" filepath="$PROJECT_DIR$/FACEBOOKCLIENT(JUN).iml" />
+      <module fileurl="file://$PROJECT_DIR$/VKCLIENT.iml" filepath="$PROJECT_DIR$/VKCLIENT.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/vksdk_library/vksdk_library.iml" filepath="$PROJECT_DIR$/vksdk_library/vksdk_library.iml" />
     </modules>
