@@ -1,6 +1,5 @@
 package com.androidjun.eltgm.facebookclientjun;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -25,11 +24,9 @@ class PhotosAdapter extends
         }
     }
 
-    private Context context;
     private ArrayList<String> photos;
-    PhotosAdapter(Context context, ArrayList<String> photos) {
+    PhotosAdapter(ArrayList<String> photos) {
         this.photos = photos;
-        this.context = context;
     }
 
     @Override
@@ -48,6 +45,7 @@ class PhotosAdapter extends
             e.printStackTrace();
         }
         try {
+            assert newurl != null;
             Bitmap mIcon_val = BitmapFactory.decodeStream(newurl.openConnection().getInputStream());
             holder.photo.setImageBitmap(mIcon_val);
         } catch (IOException e) {
@@ -65,3 +63,4 @@ class PhotosAdapter extends
         super.onAttachedToRecyclerView(recyclerView);
     }
 }
+//TODO сделать сохранение на устройство

@@ -46,7 +46,7 @@ public class ProfileActivity extends Activity{
                         photos.add(photo_604);
                         i++;
                     }
-                    final PhotosAdapter adapter = new PhotosAdapter(getApplicationContext(), photos);
+                    final PhotosAdapter adapter = new PhotosAdapter(photos);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
