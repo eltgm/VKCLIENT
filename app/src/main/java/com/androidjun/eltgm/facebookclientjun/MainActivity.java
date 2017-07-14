@@ -17,19 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-//SHA1: 63:B8:A3:E1:53:83:F2:10:56:97:28:BF:4E:1A:31:5D:ED:DC:6A:F3
 
-/**
- *                      String url = null;
- try {
- url = userList.get(0).get("photo_100").toString();
- } catch (JSONException e) {
- e.printStackTrace();
- }
- Picasso.with(getApplicationContext())
- .load(url)
- .into(image);
- */
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<JSONObject> userList = new ArrayList<>();
@@ -38,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100,bdate"));
+        final VKRequest request = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_200_orig,bdate"));
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.user_list);
         LinearLayoutManager llm = new LinearLayoutManager(this);
